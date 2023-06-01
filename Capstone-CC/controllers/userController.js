@@ -4,10 +4,10 @@ const userModel = require("../models/user");
 class UserController {
   static async register(req, res, next) {
     console.log(req.body);
-    const user = new userModel(req.body);
+    const user = new userModel(req.body); //membuat object user berdasarkan skema userModel dengan data yang ada pada req.body
 
     try {
-      await user.save();
+      await user.save(); //untuk save data ke dalam database
 
       res.send(user);
     } catch (error) {
@@ -18,8 +18,7 @@ class UserController {
   static async login(req, res, next) {
     try {
       const { username, password } = req.body;
-
-      const findUser = await userModel.findOne({ username: username }).exec();
+      const findUser = await userModel.findOne({ username: username }).exec(); //mencari username di database berdasarkan username
       if (findUser) {
         if (findUser.password == password) {
           res.send("Login berhasil");
