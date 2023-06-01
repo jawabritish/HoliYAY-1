@@ -27,6 +27,9 @@ const UserSchema = new mongoose.Schema(
     email: {
       type: String,
     },
+    image: {
+      type: String,
+    },
   },
   { timestamps: true }
 );
