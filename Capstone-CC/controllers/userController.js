@@ -9,9 +9,9 @@ class UserController {
     try {
       await user.save(); //untuk save data ke dalam database
 
-      res.send(user);
+      res.status(200).json({user});
     } catch (error) {
-      res.status(500).send(error);
+      res.status(500).json({message: "Internal server error"});
     }
   }
 
@@ -21,16 +21,18 @@ class UserController {
       const findUser = await userModel.findOne({ username: username }).exec(); //mencari username di database berdasarkan username
       if (findUser) {
         if (findUser.password == password) {
-          res.send("Login berhasil");
+          // res.send("Login berhasil");
+          res.status(200).json({message: "Login berhasil"});
         } else {
-          res.send("Password salah");
+          // res.send("Password salah");
+          res.status(400).json({message: "Password salah"});
         }
       } else {
         // res.send("Username tidak ditemukan");
         res.status(400).json({ message: "Username tidak ditemukan" });
       }
     } catch (error) {
-      res.status(500).send(error);
+      res.status(500).json({message: "Internal server error"});
     }
   }
 }
